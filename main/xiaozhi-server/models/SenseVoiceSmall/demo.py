@@ -3,13 +3,15 @@ from funasr.utils.postprocess_utils import rich_transcription_postprocess
 
 model_dir = "./"
 
+model_path = model_dir + "models/SenseVoiceSmall"
 
 model = AutoModel(
-    model=model_dir,
+    model=model_path,
     vad_model="fsmn-vad",
     vad_kwargs={"max_single_segment_time": 30000},
     # device="cuda:0",
     hub="hf",
+    trust_remote_code=True
 )
 
 # en

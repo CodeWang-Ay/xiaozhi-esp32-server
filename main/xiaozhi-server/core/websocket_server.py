@@ -76,6 +76,7 @@ class WebSocketServer:
         async with websockets.serve(
             self._handle_connection, host, port, process_request=self._http_response
         ):
+            self.logger.info(f"websocket.............start()")
             await asyncio.Future()
 
     async def _handle_connection(self, websocket: websockets.ServerConnection):
@@ -109,7 +110,9 @@ class WebSocketServer:
         # 先认证，后建立连接
         try:
             await self._handle_auth(websocket)
+            pass
         except AuthenticationError:
+            self.logger.info("认证失败")
             await websocket.send("认证失败")
             await websocket.close()
             return
